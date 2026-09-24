@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Villa Bonita Guest Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F6F7F3; --surface:#FFFFFF; --ink:#16233A; --muted:#5A6576; --line:#E1E4DC;
+  --blue:#24539B; --blue-soft:#E7EEF8; --olive:#55632E; --olive-soft:#EEF1E4; --wood:#A5652F;
+  --warn:#9A3B1E; --warn-soft:#FBEDE7;
+  --display:"Marcellus","Cormorant Garamond",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--paper:#0F1622;--surface:#172131;--ink:#EDF0F4;--muted:#A3AEBE;--line:#27344A;
+  --blue:#8EB2EA;--blue-soft:#1C2C46;--olive:#B7C68A;--olive-soft:#1F2819;--wood:#D79A63;--warn:#F1A488;--warn-soft:#2E1C17;}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--paper:#0F1622;--surface:#172131;--ink:#EDF0F4;--muted:#A3AEBE;--line:#27344A;
+  --blue:#8EB2EA;--blue-soft:#1C2C46;--olive:#B7C68A;--olive-soft:#1F2819;--wood:#D79A63;--warn:#F1A488;--warn-soft:#2E1C17;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+a{color:var(--blue)}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px}
+
+/* hero */
+.hero{position:relative;color:#fff;background:#0d2447}
+.hero img{display:block;width:100%;height:clamp(300px,62vw,460px);object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,46,.55) 0%,rgba(8,22,46,0) 38%,rgba(8,22,46,0) 55%,rgba(8,22,46,.82) 100%)}
+.hero .top{position:absolute;top:18px;left:0;right:0;text-align:center;z-index:1}
+.brand{font-family:var(--display);font-size:22px;letter-spacing:.14em}
+.brand small{display:block;font-family:var(--body);font-size:10px;letter-spacing:.32em;opacity:.85;margin-top:2px}
+.hero .bottom{position:absolute;left:0;right:0;bottom:20px;z-index:1}
+.eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.hero h1{font-size:clamp(38px,9vw,60px);line-height:1.02;margin-top:6px}
+.hero p{margin:8px 0 0;opacity:.92;font-size:15px}
+
+/* nav */
+nav.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+nav.chips .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.chips .wrap::-webkit-scrollbar{display:none}
+nav.chips a{flex:none;text-decoration:none;color:var(--ink);font-size:14px;font-weight:500;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+nav.chips a:hover,nav.chips a:focus-visible{border-color:var(--blue);color:var(--blue);outline:none}
+
+section{padding-block:36px 8px;scroll-margin-top:64px}
+section h2{font-size:30px;line-height:1.15}
+.lede{color:var(--muted);margin:6px 0 20px;max-width:60ch}
+
+/* essentials */
+.times{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.times div{background:var(--surface);padding:16px}
+.label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.big{font-family:var(--display);font-size:clamp(24px,7vw,30px);white-space:nowrap;line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.facts span{font-size:14px;padding:6px 12px;border-radius:999px;background:var(--blue-soft);color:var(--ink)}
+.rowlist{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row .v{font-weight:600;text-align:right;overflow-wrap:anywhere}
+.row .v.mono{font-variant-numeric:tabular-nums}
+.copy{font:inherit;font-size:13px;font-weight:600;color:var(--blue);background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:8px}
+.copy:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:4px}
+.gallery figure{margin:0;position:relative;border-radius:10px;overflow:hidden;background:var(--line)}
+.gallery img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.gallery figcaption{position:absolute;left:8px;bottom:8px;font-size:12px;font-weight:600;color:#fff;background:rgba(10,22,40,.6);padding:3px 8px;border-radius:6px}
+.g-wide{grid-column:span 6}.g-wide img{aspect-ratio:16/9}
+.g-half{grid-column:span 3}
+.g-third{grid-column:span 2}.g-third img{aspect-ratio:1/1}
+@media (max-width:520px){.g-third{grid-column:span 3}.g-third:last-child{grid-column:span 6}.g-third:last-child img{aspect-ratio:16/9}}
+
+.rooms{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.room{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.room h3{font-size:20px}
+.room p{margin:4px 0 0;color:var(--muted);font-size:15px}
+@media (max-width:520px){.rooms{grid-template-columns:1fr}}
+
+.amen{columns:2;column-gap:24px;margin:18px 0 0;padding:0;list-style:none}
+.amen li{break-inside:avoid;padding:8px 0 8px 22px;position:relative;border-bottom:1px dashed var(--line);font-size:15px}
+.amen li::before{content:"";position:absolute;left:2px;top:15px;width:8px;height:8px;border-radius:2px;background:var(--olive);transform:rotate(45deg)}
+@media (max-width:420px){.amen{columns:1}}
+
+/* rules */
+.rules{list-style:none;margin:0;padding:0;counter-reset:r;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.rules li{counter-increment:r;display:grid;grid-template-columns:34px 1fr;gap:4px;padding:14px 16px;border-top:1px solid var(--line)}
+.rules li:first-child{border-top:0}
+.rules li::before{content:counter(r,decimal-leading-zero);font-family:var(--display);color:var(--olive);font-size:18px;line-height:1.4}
+.rules b{display:block;font-weight:600}
+.rules span{color:var(--muted);font-size:15px}
+.pool .rules li::before{color:var(--blue)}
+.note{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--warn-soft);color:var(--warn);font-size:15px;font-weight:500}
+.note.soft{background:var(--olive-soft);color:var(--ink);font-weight:400}
+
+/* places */
+.cat{margin-top:22px}
+.cat h3{font-size:20px;margin-bottom:10px}
+.places{display:grid;gap:10px}
+.place{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.place .n{font-weight:600}
+.place .d{grid-column:1;color:var(--muted);font-size:14px}
+.place .km{grid-column:2;grid-row:1/span 2;text-align:right;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
+.place .km a{display:inline-block;margin-top:4px;font-weight:600;font-size:14px;text-decoration:none;padding:6px 12px;border-radius:8px;background:var(--blue-soft);color:var(--blue)}
+.place .km a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.tag{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--wood);margin-right:6px}
+
+/* contact */
+.contact{margin-top:8px;background:var(--ink);color:var(--paper);border-radius:18px;padding:22px 20px}
+.contact h2{color:var(--paper)}
+.contact .row{border-color:rgba(255,255,255,.14);flex-direction:column;align-items:flex-start;gap:4px}
+.contact .row .v{text-align:left;font-size:17px}
+.contact .rowlist{background:transparent;border-color:rgba(255,255,255,.18)}
+.contact .label{color:inherit;opacity:.7}
+.contact a{color:inherit}
+.contact .copy{color:inherit;border-color:rgba(255,255,255,.3)}
+.sos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.sos div{border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px;text-align:center}
+.sos b{display:block;font-family:var(--display);font-size:24px;font-weight:400}
+.sos span{font-size:12px;opacity:.75}
+@media (max-width:420px){.sos{grid-template-columns:repeat(2,1fr)}}
+.credit{margin-top:6px;font-size:12px}
+.credit a{color:var(--blue);font-weight:600;text-decoration:none}
+.credit a:hover,.credit a:focus-visible{text-decoration:underline}
+footer{text-align:center;color:var(--muted);font-size:13px;padding-block:28px 40px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <img src="img/hero.jpg" alt="Villa Bonita with its private pool and checkered deck">
+  <div class="top"><div class="brand">THE NIVAAS<small>VILLA &amp; BOUTIQUE</small></div></div>
+  <div class="bottom"><div class="wrap">
+    <div class="eyebrow">Welcome to your stay</div>
+    <h1>Villa Bonita</h1>
+    <p>Private 2 BHK pool villa · Sirsi Road, Bindayka, Jaipur</p>
+  </div></div>
+</header>
+
+<nav class="chips" aria-label="Sections"><div class="wrap">
+  <a href="#stay">Your stay</a><a href="#villa">The villa</a><a href="#rules">House rules</a><a href="#pool">Pool rules</a><a href="#eat">Restaurants</a><a href="#see">Attractions</a><a href="#help">Contact</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="stay">
+  <h2>Your stay at a glance</h2>
+  <p class="lede">Everything you need in the first ten minutes. Our caretaker is on the property and happy to help with anything.</p>
+  <div class="times">
+    <div><div class="label">Check-in</div><div class="big">2:00 PM</div></div>
+    <div><div class="label">Check-out</div><div class="big">11:00 AM</div></div>
+  </div>
+  <div class="facts"><span>Up to 7 guests</span><span>2 bedrooms</span><span>2 king beds</span><span>2 bathrooms</span><span>Private pool</span></div>
+  <div class="rowlist">
+    <div class="row"><span class="label">Wi-Fi network</span><span class="v">Ask your caretaker</span></div>
+    <div class="row"><span class="label">Wi-Fi password</span><span class="v">Ask your caretaker</span></div>
+    <div class="row"><span class="label">Address</span><span class="v">Sirsi Road, opp. Balaji City, Bindayka, Jaipur 302012</span></div>
+    <div class="row"><span class="label">Directions</span><span class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Nivaas+At+Villa+Bonita&amp;query_place_id=ChIJpcqKbfFNbDkRMNnsjLcJYXs" target="_blank" rel="noopener">Open in Google Maps</a></span></div>
+  </div>
+</section>
+
+<section id="villa">
+  <h2>The villa</h2>
+  <p class="lede">A private farm-stay villa with its own pool, landscaped lawns, a bar counter and a bonfire corner. The whole property is yours for the stay.</p>
+  <div class="gallery">
+    <figure class="g-wide"><img src="img/pool.jpg" alt="Private pool beside the striped stone wall" loading="lazy"><figcaption>Private pool</figcaption></figure>
+    <figure class="g-half"><img src="img/living.jpg" alt="Living room with red sofas and smart TV" loading="lazy"><figcaption>Living area</figcaption></figure>
+    <figure class="g-half"><img src="img/bar.jpg" alt="Wooden bar counter with stools" loading="lazy"><figcaption>Bar counter</figcaption></figure>
+    <figure class="g-half"><img src="img/bed1.jpg" alt="King bedroom" loading="lazy"><figcaption>Bedroom 1</figcaption></figure>
+    <figure class="g-half"><img src="img/bed2.jpg" alt="King bedroom opening to the lawn" loading="lazy"><figcaption>Bedroom 2</figcaption></figure>
+    <figure class="g-third"><img src="img/garden.jpg" alt="Landscaped lawn and patio seating" loading="lazy"><figcaption>Garden</figcaption></figure>
+    <figure class="g-third"><img src="img/bath.jpg" alt="Bathroom with rain shower" loading="lazy"><figcaption>Bathroom</figcaption></figure>
+    <figure class="g-third"><img src="img/bonfire.jpg" alt="Bonfire on the lawn at night" loading="lazy"><figcaption>Bonfire</figcaption></figure>
+  </div>
+
+  <div class="rooms">
+    <div class="room"><h3>Bedroom 1</h3><p>King bed + floor mattress, air-conditioned, attached bathroom with rain shower.</p></div>
+    <div class="room"><h3>Bedroom 2</h3><p>King bed + floor mattress, air-conditioned, garden-facing doors, attached bathroom.</p></div>
+  </div>
+
+  <ul class="amen">
+    <li>Private swimming pool</li>
+    <li>Landscaped lawn &amp; patio seating</li>
+    <li>Bonfire &amp; BBQ (on request)</li>
+    <li>Bar counter with refrigerator</li>
+    <li>Kitchen with microwave</li>
+    <li>Chef-curated meals (on request)</li>
+    <li>High-speed Wi-Fi</li>
+    <li>Smart TV with Netflix</li>
+    <li>Air conditioning in every room</li>
+    <li>Dedicated workspace</li>
+    <li>Rooftop terrace</li>
+    <li>Free parking on premises</li>
+    <li>On-site caretaker &amp; staff</li>
+    <li>Towels, linen &amp; toiletries</li>
+  </ul>
+</section>
+
+<section id="rules">
+  <h2>House rules</h2>
+  <p class="lede">A few simple rules so every guest, and our neighbours, can enjoy the villa.</p>
+  <ol class="rules">
+    <li><div><b>Check-in 2:00 PM, check-out 11:00 AM</b><span>Early check-in or late check-out depends on availability. Please ask in advance.</span></div></li>
+    <li><div><b>Maximum 7 guests</b><span>Only registered guests may stay overnight. Day visitors need prior approval from the host.</span></div></li>
+    <li><div><b>Valid photo ID for every guest</b><span>Aadhaar, passport, driving licence or other government ID. The primary guest must be 18 or older.</span></div></li>
+    <li><div><b>No smoking indoors</b><span>Smoking is allowed only in open outdoor areas. Please use the ashtrays provided.</span></div></li>
+    <li><div><b>Quiet hours 10:00 PM – 7:00 AM</b><span>Keep music low and indoors after 10 PM. Loudspeakers outdoors are not permitted at night.</span></div></li>
+    <li><div><b>Parties and events need approval</b><span>Birthdays and small celebrations are welcome. Tell us beforehand about decorations, extra guests or DJs.</span></div></li>
+    <li><div><b>Pets allowed</b><span>Pets are allowed, but not in the swimming pool.</span></div></li>
+    <li><div><b>Bonfire only with the caretaker</b><span>The caretaker lights and puts out the bonfire. Never leave a fire unattended.</span></div></li>
+    <li><div><b>Look after the villa</b><span>Please do not move furniture or take towels and linen outdoors. Damage or missing items will be charged.</span></div></li>
+    <li><div><b>Save power</b><span>Switch off ACs, lights and the TV when you leave the villa.</span></div></li>
+    <li><div><b>Lock up</b><span>Lock doors and sliding windows when going out. Keep valuables with you. The host is not responsible for lost items.</span></div></li>
+    <li><div><b>Drink responsibly</b><span>Illegal substances are strictly prohibited on the property.</span></div></li>
+  </ol>
+</section>
+
+<section id="pool" class="pool">
+  <h2>Pool rules</h2>
+  <p class="lede">The pool is private to your group. There is no lifeguard, so please read these before your first swim.</p>
+  <ol class="rules">
+    <li><div><b>Pool hours 8:00 AM – 10:00 PM</b><span>No swimming after dark without the pool lights on.</span></div></li>
+    <li><div><b>Swim at your own risk</b><span>There is no lifeguard on duty. Never swim alone.</span></div></li>
+    <li><div><b>Children under 12 must be supervised</b><span>An adult must be in or beside the pool at all times.</span></div></li>
+    <li><div><b>No diving or jumping</b><span>The pool is not deep enough for diving.</span></div></li>
+    <li><div><b>No glass near the pool</b><span>Use plastic cups only. Broken glass means the pool has to be drained, which may attract an extra penalty of ₹3,000 (INR 3,000).</span></div></li>
+    <li><div><b>No swimming after drinking</b><span>Alcohol and swimming don't mix.</span></div></li>
+    <li><div><b>Walk, don't run</b><span>The stone deck gets slippery when wet.</span></div></li>
+    <li><div><b>Shower before you swim</b><span>Wear proper swimwear. No oils or heavy lotions in the water.</span></div></li>
+    <li><div><b>No food in the pool</b><span>Snacks stay on the deck or lawn.</span></div></li>
+    <li><div><b>Leave the pool during storms</b><span>Get out at the first sign of thunder or lightning.</span></div></li>
+  </ol>
+</section>
+
+<section id="eat">
+  <h2>Nearby restaurants</h2>
+  <p class="lede">Distances are approximate, by road from the villa. Ratings are from Google Maps. Tap Directions for a live route to that exact restaurant. Swiggy and Zomato also deliver here, and our chef can cook at the villa if you order in advance.</p>
+
+  <div class="cat"><h3>Within 10 minutes</h3>
+  <div class="places">
+    <div class="place"><div class="n">Jaipur Yaar Restaurant</div><div class="d"><span class="tag">Non-veg</span>4.7★ · Power House Road, the closest option</div><div class="km">~2 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Jaipur+Yaar+Restaurant&amp;destination_place_id=ChIJ0ZJ4solNbDkRomMgevacFng" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">The Basket Café &amp; Restaurant</div><div class="d"><span class="tag">Café</span>4.6★ · North Indian, Vaishali Marg</div><div class="km">~4 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=The+Basket+Caf%C3%A9+%26+Restaurant&amp;destination_place_id=ChIJQ3qzMxO3bTkRdHmg0-4MgRE" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Chandigarh Haveli Restaurant</div><div class="d"><span class="tag">Budget</span>4.8★ · Punjabi, Kanak Vrindavan</div><div class="km">~4 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Chandigarh+Haveli+Restaurant&amp;destination_place_id=ChIJhSnYPABLbDkRnRLGyJrxyoc" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Gallon-56</div><div class="d"><span class="tag">Dine-in</span>4.6★ · Dhaka Nagar</div><div class="km">~4 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Gallon-56&amp;destination_place_id=ChIJN7PQmXJNbDkRWYsCitZTW60" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Sharma Dhaba</div><div class="d"><span class="tag">Dhaba</span>North Indian, thalis · Sirsi Road</div><div class="km">~4 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Sharma+Dhaba&amp;destination_place_id=ChIJnyre23FNbDkRX6zIl1YPZSM" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Athena Rooftop Jaipur</div><div class="d"><span class="tag">Rooftop</span>4.7★ · Gandhi Path Road</div><div class="km">~5 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Athena+Rooftop+Jaipur&amp;destination_place_id=ChIJP_TqRYhLbDkRMetHRXMBwNk" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Gulabi Dhaba</div><div class="d"><span class="tag">Family</span>4.7★ · North Indian, Gandhi Path Road</div><div class="km">~5 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Gulabi+Dhaba&amp;destination_place_id=ChIJz9mOHgBLbDkRW9gLZqUgLo8" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Choudhary Dhaba</div><div class="d"><span class="tag">Late night</span>4.5★ · Punjabi, Sirsi Road, open late</div><div class="km">~5 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Choudhary+Dhaba&amp;destination_place_id=ChIJzWbD_EZNbDkRATnFD_9AS9k" target="_blank" rel="noopener">Directions</a></div></div>
+  </div></div>
+
+  <div class="cat"><h3>Vaishali Nagar, about 20 minutes</h3>
+  <div class="places">
+    <div class="place"><div class="n">Fort Palms</div><div class="d"><span class="tag">Dine-in</span>4.5★ · North Indian, Sirsi Road</div><div class="km">~9 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Fort+Palms&amp;destination_place_id=ChIJR-KpasqzbTkRXWBO7F_4chc" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Vaishali Veg Inn</div><div class="d"><span class="tag">Pure veg</span>4.9★ · Restaurant &amp; banquet</div><div class="km">~8 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Vaishali+Veg+Inn&amp;destination_place_id=ChIJXzQNjJe1bTkRI2jnBGdvLh0" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Bootleggers Lounge &amp; Kitchen</div><div class="d"><span class="tag">Bar</span>4.8★ · North Indian, Chitrakoot</div><div class="km">~9 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Bootleggers+Lounge+%26+Kitchen&amp;destination_place_id=ChIJ7UtQCi-1bTkRdNex4hH9WUc" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Butler's</div><div class="d"><span class="tag">Pure veg</span>4.8★ · Near Vaishali Circle</div><div class="km">~10 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Butler%27s&amp;destination_place_id=ChIJW7iLhR-zbTkRcvRb1IFSyq4" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Jeypore Cafe and Restaurant</div><div class="d"><span class="tag">Café</span>4.8★ · North Indian</div><div class="km">~10 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Jeypore+Cafe+and+Restaurant&amp;destination_place_id=ChIJOVFzTnW1bTkREtyCQydsj9M" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Thali and More</div><div class="d"><span class="tag">Thali</span>4.7★ · Rajasthani &amp; North Indian thalis</div><div class="km">~10 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Thali+and+More&amp;destination_place_id=ChIJ975uSFW1bTkRC1WTaNHOt38" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Dhaba Delight</div><div class="d"><span class="tag">Pure veg</span>4.7★ · Dhaba-style food</div><div class="km">~10 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Dhaba+Delight&amp;destination_place_id=ChIJy_Kr6CezbTkRb1V46kHicew" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">SambharSa</div><div class="d"><span class="tag">South Indian</span>4.7★ · Dosas and breakfast</div><div class="km">~11 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=SambharSa&amp;destination_place_id=ChIJWcQchIG1bTkRJR2xtUFiEYM" target="_blank" rel="noopener">Directions</a></div></div>
+  </div></div>
+</section>
+
+<section id="see">
+  <h2>Nearby attractions</h2>
+  <p class="lede">The Pink City's landmarks are 40–60 minutes away by car. Start early for the forts; afternoons get hot for most of the year.</p>
+
+  <div class="cat"><h3>Old city</h3>
+  <div class="places">
+    <div class="place"><div class="n">Hawa Mahal</div><div class="d">The five-storey Palace of Winds, best in morning light</div><div class="km">~20 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hawa+Mahal&amp;destination_place_id=ChIJpQvTG0uxbTkRDLLMHlNdDoY" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">City Palace</div><div class="d">Royal residence and museums in the heart of the old city</div><div class="km">~20 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=City+Palace&amp;destination_place_id=ChIJwbAghgu0bTkRYHt9ATEVgEQ" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Jantar Mantar</div><div class="d">UNESCO-listed astronomical observatory beside City Palace</div><div class="km">~20 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Jantar+Mantar&amp;destination_place_id=ChIJaXD1f0yxbTkRvquNoSkESuk" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Albert Hall Museum</div><div class="d">Indo-Saracenic museum, lit up beautifully at night</div><div class="km">~19 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Albert+Hall+Museum&amp;destination_place_id=ChIJXyn5OrC2bTkRaGk8EzNDuwU" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Johari Bazaar</div><div class="d">Jewellery, textiles, juttis and block prints</div><div class="km">~20 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=26.9200347,75.827127" target="_blank" rel="noopener">Directions</a></div></div>
+  </div></div>
+
+  <div class="cat"><h3>Forts &amp; lakes</h3>
+  <div class="places">
+    <div class="place"><div class="n">Amber Fort</div><div class="d">Hilltop fort and Sheesh Mahal. Allow 2–3 hours</div><div class="km">~26 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Amber+Fort&amp;destination_place_id=ChIJ-w3Sy1qwbTkRK34UR2ffIWI" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Jal Mahal</div><div class="d">Palace in Man Sagar Lake, on the way to Amber</div><div class="km">~24 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Jal+Mahal&amp;destination_place_id=ChIJlXJ26RuxbTkR0qsToxFP05c" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Nahargarh Fort</div><div class="d">Best sunset view over the city</div><div class="km">~25 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Nahargarh+Fort&amp;destination_place_id=ChIJ0fNH81yxbTkRi56uF-amqgo" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Jaigarh Fort</div><div class="d">Home of the Jaivana cannon, above Amber</div><div class="km">~27 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Jaigarh+Fort&amp;destination_place_id=ChIJx0lfsbGxbTkRgVOhxJ7EGbw" target="_blank" rel="noopener">Directions</a></div></div>
+  </div></div>
+
+  <div class="cat"><h3>More to explore</h3>
+  <div class="places">
+    <div class="place"><div class="n">Patrika Gate</div><div class="d">Painted gateway at Jawahar Circle, a favourite photo spot</div><div class="km">~20 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Patrika+Gate&amp;destination_place_id=ChIJ4TVkaQC1bTkRJD5Ibk-uZSA" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Birla Mandir</div><div class="d">White marble Lakshmi Narayan temple</div><div class="km">~19 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Birla+Mandir&amp;destination_place_id=ChIJr6cur5m2bTkRWIDcK9acl30" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Galta Ji (Monkey Temple)</div><div class="d">Temple complex with natural springs in the hills</div><div class="km">~24 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=26.917196,75.8582521" target="_blank" rel="noopener">Directions</a></div></div>
+    <div class="place"><div class="n">Chokhi Dhani</div><div class="d">Rajasthani village experience and dinner, evenings</div><div class="km">~30 km<br><a href="https://www.google.com/maps/dir/?api=1&amp;destination=26.7674657,75.8361692" target="_blank" rel="noopener">Directions</a></div></div>
+  </div></div>
+
+  <div class="note soft">Jaipur Junction railway station is about 15 km away and Jaipur International Airport about 23 km. The caretaker can help arrange a cab.</div>
+</section>
+
+<section id="help">
+  <div class="contact">
+    <h2>Need anything?</h2>
+    <p style="opacity:.8;margin:6px 0 0">We are happy to assist you.</p>
+    <div class="rowlist">
+      <div class="row"><span class="label">Phone / WhatsApp</span><span class="v mono"><a href="tel:+919422799759">+91 94227 99759</a><button class="copy" data-copy="+91 94227 99759" type="button">Copy</button></span></div>
+      <div class="row"><span class="label">Email</span><span class="v"><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=reservations@thenivaas.com&amp;su=Villa%20Bonita%20guest%20enquiry" target="_blank" rel="noopener">reservations@thenivaas.com</a><button class="copy" data-copy="reservations@thenivaas.com" type="button">Copy</button></span></div>
+    </div>
+    <div class="label" style="margin-top:18px">Emergency numbers</div>
+    <div class="sos">
+      <div><b>112</b><span>All emergencies</span></div>
+      <div><b>100</b><span>Police</span></div>
+      <div><b>108</b><span>Ambulance</span></div>
+      <div><b>101</b><span>Fire</span></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>The Nivaas · Villa &amp; Boutique · Thank you for staying with us<div class="credit">Designed and developed by <a href="https://techqart.com/" target="_blank" rel="noopener">Techqart</a></div></footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.getAttribute('data-copy');
+    var done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)};
+    try{navigator.clipboard.writeText(t).then(done,function(){sel(b)})}catch(e){sel(b)}
+  });
+});
+function sel(b){var r=document.createRange();r.selectNodeContents(b.parentNode.firstChild);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+</script>
+
+</body>
+</html>
